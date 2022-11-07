@@ -45,7 +45,7 @@ public class MainFrame extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String userName = txtInputUsername.getText();
-                System.out.println("btn login clicked" + txtInputUsername.getText());
+                System.out.println("btn login clicked " + txtInputUsername.getText());
 
                 if (chatClient.isAuthenticted()) {
                     chatClient.logout();
@@ -149,7 +149,7 @@ public class MainFrame extends JFrame {
         for (Message msg : chatClient.getMessages()) {
             txtChat.append(msg.toString());
             txtChat.append("\n");
-
         }
+
     }
 }

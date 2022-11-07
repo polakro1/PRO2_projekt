@@ -1,10 +1,15 @@
 package models;
 
+import com.google.gson.annotations.Expose;
+
 import java.time.LocalDateTime;
 
 public class Message {
+    @Expose(serialize = true, deserialize = true)
     private String author;
+    @Expose(serialize = true, deserialize = true)
     private String text;
+    @Expose(serialize = false, deserialize = true)
     private LocalDateTime created;
 
     public static final int USER_LOGGED_IN = 1;
@@ -31,10 +36,10 @@ public class Message {
     public Message(int type, String username) {
         this.author = AUTHOR_SYSTEM;
         if (type == USER_LOGGED_IN) {
-            text = text + "user joined the chat " + username;
+            text = "user joined the chat " + username;
         }
         if(type == USER_LOGGED_OUT) {
-            text = text + "user left the chat " + username;
+            text = "user left the chat " + username;
         }
         created = LocalDateTime.now();
     }
@@ -45,7 +50,7 @@ public class Message {
             return text + "\n";
         }
 
-        String s = author + "[" + created.toLocalTime() + "]\n";
+        String s = author + "[" + created + "]\n";
         s += text + "\n";
         return s;
     }
