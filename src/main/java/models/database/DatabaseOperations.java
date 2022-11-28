@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface DatabaseOperations {
     void addMessage(Message message);
-    List<Message> getMessage();
+    List<Message> getMessages();
 }

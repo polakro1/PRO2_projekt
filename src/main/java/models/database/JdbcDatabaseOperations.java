@@ -3,6 +3,7 @@ package models.database;
 import models.chatClients.Message;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class JdbcDatabaseOperations implements DatabaseOperations {
@@ -16,7 +17,7 @@ public class JdbcDatabaseOperations implements DatabaseOperations {
     public void addMessage(Message message) {
 
         try {
-            String sql = "INSERT INTO ChatMessages (author, text, created)"
+            String sql = "INSERT INTO Chat (author, text, created)"
                     + "VALUES ("
                         + "'" + message.getAuthor() + ","
                         + "'" + message.getText() + ","
@@ -24,7 +25,6 @@ public class JdbcDatabaseOperations implements DatabaseOperations {
                     + ")";
 
             Statement statement = connection.createStatement();
-            statement = connection.createStatement();
             statement.executeUpdate(sql);
             statement.close();
         } catch (SQLException e) {
@@ -34,7 +34,23 @@ public class JdbcDatabaseOperations implements DatabaseOperations {
     }
 
     @Override
-    public List<Message> getMessage() {
-        return null;
+    public List<Message> getMessages() {
+        try {
+            String sql = "SELECT Author, Text, Created FROM Chat";
+
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(sql);
+
+            List<Message> messages = new ArrayList<>();
+            while (resultSet.next()) {
+                messages.add(new Message(resultSet.getString("Author"),
+                        resultSet.getString("Text")));
+            }
+
+            return messages;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 }
