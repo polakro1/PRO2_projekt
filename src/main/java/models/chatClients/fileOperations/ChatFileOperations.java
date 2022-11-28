@@ -1,6 +1,6 @@
 package models.chatClients.fileOperations;
 
-import models.Message;
+import models.chatClients.Message;
 
 import java.util.List;
 

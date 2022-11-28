@@ -1,6 +1,5 @@
 package models.database;
 
-import javax.swing.plaf.nimbus.State;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.Statement;
@@ -19,7 +18,9 @@ public class DbInitializer {
             Class.forName(driver); // načte jdb:derby driver
             Connection conn = DriverManager.getConnection(url);
 
-            String sql = "CREW TABLE Chat" + "(id INT NOT NULL ALWAYS AS IDENTITY)" + "CONSTRAINT ChatMessages_PK PRIMARY KEY"
+            String sql = "CREATE TABLE Chat "
+                    + "(id INT NOT NULL GENERATED ALWAYS AS IDENTITY "
+                    + "CONSTRAINT ChatMessages_PK PRIMARY KEY, "
                     + "author varchar(50), "
                     + "text varchar(1000), "
                     + "created timestamp)";

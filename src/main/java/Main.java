@@ -20,7 +20,13 @@ public class Main {
         dbInitializer.init();
 
         ChatFileOperations chatFileOperations = new JsonChatFileOperations();
-
+        /*
+        try {
+            ChatFileOperations chatFileOperations = new JdbcDatabaseOperations(databaseDriver, dataBaseUrl);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+         */
 
         ChatClient chatClient = new FileChatClient(chatFileOperations);
 
@@ -35,7 +41,7 @@ public class Main {
             System.out.println(f.getName() + " : " + f.getType());
         }
 
-        MainFrame window = new MainFrame(800, 600, apiChatClient);
+        MainFrame window = new MainFrame(800, 600, chatClient);
 
         //test();
     }

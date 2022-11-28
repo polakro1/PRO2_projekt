@@ -3,11 +3,10 @@ package models.chatClients.api;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
-import models.Message;
+import models.chatClients.Message;
 import models.chatClients.ChatClient;
-import models.database.LocalDatetimeDeserializer;
-import models.database.LocalDatetimeSerializer;
-import org.apache.http.client.HttpClient;
+import models.chatClients.fileOperations.LocalDatetimeDeserializer;
+import models.chatClients.fileOperations.LocalDatetimeSerializer;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
@@ -63,7 +62,7 @@ public class ApiChatClient implements ChatClient {
     public void sendMessage(String text) {
         try {
             SendMessageRequest msgRequest = new SendMessageRequest(token, text);
-                String url = BASE_URL + "/api/Chat/SendMessage";
+            String url = BASE_URL + "/api/Chat/SendMessage";
             HttpPost post = new HttpPost(url);
             StringEntity body = new StringEntity(gson.toJson(msgRequest), "utf-8");
             body.setContentType("application/json");
@@ -106,13 +105,6 @@ public class ApiChatClient implements ChatClient {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-        loggedUser = userName;
-        loggedUsers.add(userName);
-        raiseEventLoggedUsersChanged();
-        addSystemMessage(Message.USER_LOGGED_IN, userName);
-
-        System.out.println("user logged in " + userName);
     }
 
     @Override
@@ -137,17 +129,10 @@ public class ApiChatClient implements ChatClient {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        loggedUsers.remove(loggedUser);
-        loggedUser = null;
-        raiseEventLoggedUsersChanged();
-        addSystemMessage(Message.USER_LOGGED_OUT, loggedUser);
-
-        System.out.println("user logged out " + loggedUser);
     }
 
     @Override
     public Boolean isAuthenticted() {
-        System.out.println("is authenticated: " + (loggedUser != null));
         return loggedUser != null;
     }
 

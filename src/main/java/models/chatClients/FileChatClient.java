@@ -1,6 +1,5 @@
 package models.chatClients;
 
-import models.Message;
 import models.chatClients.fileOperations.ChatFileOperations;
 
 import java.awt.event.ActionEvent;
@@ -19,9 +18,11 @@ public class FileChatClient implements ChatClient {
     ChatFileOperations chatFileOperations;
     public FileChatClient(ChatFileOperations chatFileOperations) {
         loggedUsers = new ArrayList<>();
-        messages = chatFileOperations.readMessage();
+        messages = new ArrayList<>();
 
         this.chatFileOperations = chatFileOperations;
+
+        messages = chatFileOperations.readMessage();
     }
 
     @Override
@@ -44,12 +45,12 @@ public class FileChatClient implements ChatClient {
 
     @Override
     public void logout() {
+        System.out.println("user logged out " + loggedUser);
+
+        addSystemMessage(Message.USER_LOGGED_OUT, loggedUser);
         loggedUsers.remove(loggedUser);
         loggedUser = null;
         raiseEventLoggedUsersChanged();
-        addSystemMessage(Message.USER_LOGGED_OUT, loggedUser);
-
-        System.out.println("user logged out " + loggedUser);
     }
 
     @Override

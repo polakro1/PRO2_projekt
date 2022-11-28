@@ -1,4 +1,4 @@
-package models;
+package models.chatClients;
 
 import com.google.gson.annotations.Expose;
 

@@ -1,7 +1,5 @@
 package models.chatClients;
 
-import models.Message;
-
 import java.awt.event.ActionListener;
 import java.util.List;
 

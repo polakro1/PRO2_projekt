@@ -1,6 +1,6 @@
 package models.database;
 
-import models.Message;
+import models.chatClients.Message;
 
 import java.sql.*;
 import java.util.List;
@@ -17,10 +17,11 @@ public class JdbcDatabaseOperations implements DatabaseOperations {
 
         try {
             String sql = "INSERT INTO ChatMessages (author, text, created)"
-                    + "´" + message.getAuthor() + ","
-                    + "´" + message.getText() + ","
-                    + "´" + Timestamp.valueOf(message.getCreated()) + ","
-                    + ");";
+                    + "VALUES ("
+                        + "'" + message.getAuthor() + ","
+                        + "'" + message.getText() + ","
+                        + "'" + Timestamp.valueOf(message.getCreated()) + "'"
+                    + ")";
 
             Statement statement = connection.createStatement();
             statement = connection.createStatement();

@@ -1,6 +1,6 @@
 package models.gui;
 
-import models.Message;
+import models.chatClients.Message;
 import models.chatClients.ChatClient;
 
 import javax.swing.*;
@@ -41,29 +41,25 @@ public class MainFrame extends JFrame {
         JTextField txtInputUsername = new JTextField("", 30);
         panel.add(txtInputUsername);
         JButton btnLogin = new JButton("Login");
-        btnLogin.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
+        btnLogin.addActionListener(e -> {
+            System.out.println("btn login clicked " + txtInputUsername.getText());
+
+            if (chatClient.isAuthenticted()) {
+                chatClient.logout();
+                btnLogin.setText("Login");
+                txtInputUsername.setEditable(true);
+                txtChat.setEnabled(false);
+                txtInputMessage.setEnabled(false);
+            } else {
                 String userName = txtInputUsername.getText();
-                System.out.println("btn login clicked " + txtInputUsername.getText());
-
-                if (chatClient.isAuthenticted()) {
-                    chatClient.logout();
-                    btnLogin.setText("Login");
-                    txtInputUsername.setEditable(true);
-                    txtChat.setEnabled(false);
-                    txtInputMessage.setEnabled(false);
-                } else {
-
-                    if(userName.length() < 1) {
-                        JOptionPane.showMessageDialog(null, "Input your username", "Error", JOptionPane.WARNING_MESSAGE);
-                    }
-                    chatClient.login(userName);
-                    btnLogin.setText("Logout");
-                    txtInputUsername.setEditable(false);
-                    txtChat.setEnabled(true);
-                    txtInputMessage.setEnabled(true);
+                if(userName.length() < 1) {
+                    JOptionPane.showMessageDialog(null, "Input your username", "Error", JOptionPane.WARNING_MESSAGE);
                 }
+                chatClient.login(userName);
+                btnLogin.setText("Logout");
+                txtInputUsername.setEditable(false);
+                txtChat.setEnabled(true);
+                txtInputMessage.setEnabled(true);
             }
         });
         panel.add(btnLogin);
@@ -96,22 +92,19 @@ public class MainFrame extends JFrame {
         JButton btnSend = new JButton("Send");
         panel.add(txtInputMessage);
         panel.add(btnSend);
-        btnSend.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                String msgText = txtInputMessage.getText();
-                System.out.println("btn send clicked " + txtInputMessage.getText());
+        btnSend.addActionListener(e -> {
+            String msgText = txtInputMessage.getText();
+            System.out.println("btn send clicked " + txtInputMessage.getText());
 
-                //txtChat.append(txtInputMessage.getText() + "/n");
-                if (msgText.length() == 0) {
-                    return;
-                }
-                if (!chatClient.isAuthenticted()) {
-                    return;
-                }
-                chatClient.sendMessage(msgText);
-                txtInputMessage.setText("");
+            //txtChat.append(txtInputMessage.getText() + "/n");
+            if (msgText.length() == 0) {
+                return;
             }
+            if (!chatClient.isAuthenticted()) {
+                return;
+            }
+            chatClient.sendMessage(msgText);
+            txtInputMessage.setText("");
         });
 
         return panel;
