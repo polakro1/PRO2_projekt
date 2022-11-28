@@ -37,10 +37,10 @@ public class Message {
     public Message(int type, String username) {
         this.author = AUTHOR_SYSTEM;
         if (type == USER_LOGGED_IN) {
-            text = text + "user joined the chat " + username;
+            text = "user joined the chat " + username;
         }
         if(type == USER_LOGGED_OUT) {
-            text = text + "user left the chat " + username;
+            text = "user left the chat " + username;
         }
         created = LocalDateTime.now();
     }
