@@ -16,6 +16,7 @@ public class Message {
     public static final int USER_LOGGED_IN = 1;
     public static final int USER_LOGGED_OUT = 2;
     public static final String AUTHOR_SYSTEM = "System";
+
     public String getAuthor() {
         return author;
     }
@@ -43,6 +44,12 @@ public class Message {
             text = "user left the chat " + username;
         }
         created = LocalDateTime.now();
+    }
+
+    public Message(String author, String text, LocalDateTime created) {
+        this.author = author;
+        this.text = text;
+        this.created = created;
     }
 
     @Override

@@ -3,6 +3,7 @@ package models.database;
 import models.chatClients.Message;
 
 import java.sql.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,7 +45,8 @@ public class JdbcDatabaseOperations implements DatabaseOperations {
             List<Message> messages = new ArrayList<>();
             while (resultSet.next()) {
                 messages.add(new Message(resultSet.getString("Author"),
-                        resultSet.getString("Text")));
+                        resultSet.getString("Text"),
+                        resultSet.getTimestamp("Created").toLocalDateTime()));
             }
 
             return messages;
