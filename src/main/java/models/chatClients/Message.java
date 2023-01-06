@@ -34,6 +34,12 @@ public class Message {
         created = LocalDateTime.now();
     }
 
+    public Message(String author, String text, LocalDateTime created) {
+        this.author = author;
+        this.text = text;
+        this.created = created;
+    }
+
     public Message(int type, String username) {
         this.author = AUTHOR_SYSTEM;
         if (type == USER_LOGGED_IN) {
