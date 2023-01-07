@@ -85,7 +85,7 @@ public class ApiChatClient implements ChatClient {
     @Override
     public void login(String userName) {
         try {
-            String url = BASE_URL + "/api/Chat/Login";
+            String url = BASE_URL + "/api/Chat/Logim";
             HttpPost post = new HttpPost(url);
             StringEntity body = new StringEntity("\"" + userName  + "\"", "utf-8");
             body.setContentType("application/json");

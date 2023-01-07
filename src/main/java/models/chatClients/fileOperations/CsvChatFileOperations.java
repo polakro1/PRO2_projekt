@@ -15,7 +15,7 @@ public class CsvChatFileOperations implements ChatFileOperations {
 
     @Override
     public void writeMessage(List<Message> messages) {
-        try (PrintWriter writer = new PrintWriter(new File(MESSAGES_FILE));)
+        try (PrintWriter writer = new PrintWriter(MESSAGES_FILE);)
         {
             for (Message message:
                  messages) {
